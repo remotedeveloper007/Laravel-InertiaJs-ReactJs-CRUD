@@ -1,0 +1,71 @@
+//Server side setup
+1. laravel new l8inertia
+
+2. composer require inertiajs/inertia-laravel
+
+3. composer require laravel/ui
+    //for scraffolding
+4. php artisan ui react
+
+5. npm install && npm run dev
+
+6. php artisan inertia:middleware
+
+'web' => [
+    // ...
+    \App\Http\Middleware\HandleInertiaRequests::class,
+],
+
+
+// Client side setup
+1. npm install @inertiajs/inertia @inertiajs/inertia-react
+
+2. npm install @inertiajs/react
+
+3. 
+import React from 'react'
+import { render } from 'react-dom'
+import { createInertiaApp } from '@inertiajs/inertia-react'
+
+createInertiaApp({
+  resolve: name => require(`./Pages/${name}`),
+  setup({ el, App, props }) {
+    render(<App {...props} />, el)
+  },
+})
+
+
+
+//
+php artisan make:model Post -mcrf (OR) php artisan make:model -mrc Chirp
+
+//After adding required column in migration file run below command
+php artisan migrate
+
+//To insert users data through factory run below command
+php artisan tinker
+User::factory(10)->create();
+
+//create UserController
+php artisan make:controller UserController -r
+
+
+//To create auth scraffolding
+php artisan ui:auth   OR php artisan ui --auth
+
+
+
+
+//For storagepermission errofa-rotate-180
+
+chmod -R 775 storage/framework
+chmod -R ugo+rw storage
+chmod -R 775 bootstrap/cache
+chmod -R 777 storage/logs
+
+php artisan route:clear
+php artisan config:clear
+php artisan cache:clear
+
+//
+composer dump-autoload
